@@ -1,0 +1,110 @@
+example code:
+
+^ comment! ^
+
+
+^ declare variable myint as type integer ^
+myint : integer
+
+^ assign myint to a value ^
+myint = 5
+
+
+myint2 : integer
+
+^ set myint2 to this value! ^
+myint2 = myint + 10
+
+
+mystring : string
+
+^ set mystring to a string value! ^
+mystring = > nyaaaa <
+
+
+^ make a list! ^
+myintlist : integer[6]
+
+^ we only assign the first value ^
+myintlist [0] = 1
+
+
+^ define our own datatype ^
+myweirdtype : type
+
+myweirdtype = (integer string)
+
+
+^ use our own datatype ^
+myweirdthing : myweirdtype
+
+myweirdthing = (myint2 mystring)
+
+
+^ make a function! ^
+myfunky : funk
+
+myfunky = (
+	arg1 : string
+	arg2 : integer
+	:3
+	arg3 : integer
+	arg4 : string
+	) =w= (
+
+	^ output arg1 to console ^
+	meow arg1
+
+	^ self explanatory ^
+	meow (arg2 + arg3)
+	meow arg4
+)
+
+^ call our function!!
+
+> im arg1 < 6 myfunky 7 > im arg4 <
+
+^ this also works bc whitespace doesnt matter ^
+
+> im arg1 <
+6
+myfunky
+7
+> im arg4 <
+
+
+^ end of file ^
+iloveu
+
+
+
+
+everything is one of:
+
+special operator (=, :, :3, or =w=)
+	can't be used anywhere else, they are used for declaring/writing to variables
+	= assigns a variable
+	: declares a variable's type
+	:3 declares a function argument list and where the arguments go relative to the function name
+	=w= connects a function argument list to its codeblock
+
+number literal (1, 2, 3, 0xff, 0b01, etc)
+	used for fixed values. it's pretty obvious
+
+string literal (> meow meow meow im a string <)
+	use for strings. everything in the >< is parsed
+
+comment (^ comment! ^)
+	does nothing. probably useless
+
+parentheses ( () )
+	used for specifying order of operations
+
+brackets ( [size] or [0-index] )
+	used for selecting an item from a list or declaring as a list
+
+iloveu (iloveu)
+	put this at the end of the file to show your love. will not run without it.
+
+keywords (everything else)
+	variable names, operators, functions, you do u
