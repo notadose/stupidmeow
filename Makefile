@@ -8,12 +8,12 @@ SOURCE_DIR = src
 
 # List of all the source files.
 SOURCE = \
-	main.cpp \
+	parser.c \
 
 INCLUDES = \
 	src \
 
-CXX = g++
+CXX = gcc
 
 CXX_FLAGS = \
 	-g -Wall -Wextra -Wfloat-equal -Wswitch-default -Wswitch-enum
@@ -21,7 +21,7 @@ CXX_FLAGS = \
 LNK_FLAGS = 
 
 # All .o files go to build dir.
-CXX_OBJ = $(SOURCE:%.cpp=$(BUILD_DIR)/%.o)
+CXX_OBJ = $(SOURCE:%.c=$(BUILD_DIR)/%.o)
 OBJ = $(CXX_OBJ)
 
 
@@ -43,7 +43,7 @@ $(BIN) : PreBuild $(OBJ)
 # Build target for every single object file.
 # The potential dependency on header files is covered
 # by calling `-include $(DEP)`.
-$(BUILD_DIR)/%.o : $(SOURCE_DIR)/%.cpp
+$(BUILD_DIR)/%.o : $(SOURCE_DIR)/%.c
 	echo Compiling $(notdir $<)
 	-mkdir -p $(@D) 2>/dev/null
 	# The -MMD flags additionaly creates a .d file with

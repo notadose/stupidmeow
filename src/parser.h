@@ -2,7 +2,6 @@
 
 #include "builtins.h"
 #include <stdint.h>
-#include <builtins.h>
 
 enum smParserTokenType{
   SMPTT_SPECOP, // :, =, :3, =w=
@@ -30,8 +29,8 @@ enum smParserTokenType{
 union smParserTokenContent{
   int64_t intContent;
   double floatContent;
-  char *textContent;
-  smSpecOp specOpContent;
+  const char *textContent;
+  enum smSpecOp specOpContent;
 };
 
 
@@ -41,28 +40,28 @@ union smParserTokenContent{
   a token which was parsed from text
 */
 struct smParserToken{
-  smParserTokenType type;
-  smParserTokenContent content;
+  enum smParserTokenType type;
+  union smParserTokenContent content;
 };
 
 
-smParserToken sm_create_token_specop(smSpecOp type);
+struct smParserToken sm_create_token_specop(enum smSpecOp type);
 
-smParserToken sm_create_token_integer(int64_t value);
-smParserToken sm_create_token_float(double value);
+struct smParserToken sm_create_token_integer(int64_t value);
+struct smParserToken sm_create_token_float(double value);
 
 // string-containing tokens allocate their own null-terminated copy of the text
-smParserToken sm_create_token_keyword(char *name, uint64_t length);
-smParserToken sm_create_token_string(char *string, uint64_t length);
+struct smParserToken sm_create_token_keyword(const char *name, uint64_t length);
+struct smParserToken sm_create_token_string(const char *string, uint64_t length);
 
-smParserToken sm_create_token_openpar();
-smParserToken sm_create_token_closepar();
+struct smParserToken sm_create_token_openpar();
+struct smParserToken sm_create_token_closepar();
 
-smParserToken sm_create_token_openbrak();
-smParserToken sm_create_token_closebrak();
+struct smParserToken sm_create_token_openbrak();
+struct smParserToken sm_create_token_closebrak();
 
-smParserToken sm_create_token_iloveu();
+struct smParserToken sm_create_token_iloveu();
 
 
 // Create an array of tokens from a string
-smParserToken *sm_parse_program(char *programStr);
+struct smParserToken *sm_parse_program(const char *programStr);
