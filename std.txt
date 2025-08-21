@@ -80,7 +80,7 @@ iloveu
 
 
 
-remember :3! you need spaces between all keywords which includes operators except for : and =
+remember :3! you need spaces between all keywords which includes operators
 
 everything is one of:
 
@@ -90,7 +90,6 @@ special operator (=, :, :3, or =w=)
 	: declares a variable's type
 	:3 declares a function argument list and where the arguments go relative to the function name
 	=w= connects a function argument list to its codeblock
-	note that : and = can be used without spaces
 
 number literal (1, 2, 3, 0xff, 0b01, 0.01, etc)
 	used for fixed values. it's pretty obvious
