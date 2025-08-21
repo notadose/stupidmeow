@@ -88,7 +88,7 @@ special operator (=, :, :3, or =w=)
 	:3 declares a function argument list and where the arguments go relative to the function name
 	=w= connects a function argument list to its codeblock
 
-number literal (1, 2, 3, 0xff, 0b01, etc)
+number literal (1, 2, 3, 0xff, 0b01, 0.01, etc)
 	used for fixed values. it's pretty obvious
 
 string literal (> meow meow meow im a string <)
