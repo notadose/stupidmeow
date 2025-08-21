@@ -62,6 +62,16 @@ struct smParserToken sm_create_token_closebrak();
 
 struct smParserToken sm_create_token_iloveu();
 
+// Parse a string into a token token intelligently (figure out what it does..)
+// could be a keyword or number or special operator or iloveu
+struct smParserToken sm_parse_word_to_token(const char *word, uint64_t length);
 
-// Create an array of tokens from a string
+
+/*
+sm_parse_program
+
+Create an array of tokens from a null-terminated string
+Array will end with an ILOVEU token
+Returns NULL on failure
+*/
 struct smParserToken *sm_parse_program(const char *programStr);

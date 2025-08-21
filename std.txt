@@ -1,6 +1,6 @@
 example code:
 
-^ comment! ^
+^comment!^
 
 
 ^ declare variable myint as type integer ^
@@ -19,14 +19,14 @@ myint2 = myint + 10
 mystring : string
 
 ^ set mystring to a string value! ^
-mystring = > nyaaaa <
+mystring = >nyaaaa<
 
 
 ^ make a list! ^
-myintlist : integer[6]
+myintlist : integer [6]
 
 ^ we only assign the first value ^
-myintlist [0] = 1
+myintlist[0] = 1
 
 
 ^ define our own datatype ^
@@ -60,17 +60,19 @@ myfunky = (
 	meow arg4
 )
 
+
 ^ call our function!!
 
-> im arg1 < 6 myfunky 7 > im arg4 <
+>im arg1< 6 myfunky 7 >im arg4<
+
 
 ^ this also works bc whitespace doesnt matter ^
 
-> im arg1 <
+>im arg1<
 6
 myfunky
 7
-> im arg4 <
+>im arg4<
 
 
 ^ end of file ^
@@ -78,6 +80,7 @@ iloveu
 
 
 
+remember :3! you need spaces between all keywords which includes operators except for : and =
 
 everything is one of:
 
@@ -87,6 +90,7 @@ special operator (=, :, :3, or =w=)
 	: declares a variable's type
 	:3 declares a function argument list and where the arguments go relative to the function name
 	=w= connects a function argument list to its codeblock
+	note that : and = can be used without spaces
 
 number literal (1, 2, 3, 0xff, 0b01, 0.01, etc)
 	used for fixed values. it's pretty obvious

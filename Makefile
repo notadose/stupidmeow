@@ -16,9 +16,10 @@ INCLUDES = \
 CXX = gcc
 
 CXX_FLAGS = \
-	-g -Wall -Wextra -Wfloat-equal -Wswitch-default -Wswitch-enum
+	-g -Wall -Wextra -Wfloat-equal -Wswitch-default -Wswitch-enum -O0
 	
-LNK_FLAGS = 
+LNK_FLAGS = \
+	-g -O0
 
 # All .o files go to build dir.
 CXX_OBJ = $(SOURCE:%.c=$(BUILD_DIR)/%.o)

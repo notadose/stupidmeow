@@ -1,0 +1,19 @@
+meow 12345
+meow >meowww!<
+^comment^
+meow 0xabcd
+meow(nya)
+meow(thing[0])
+
+thing : integer
+thing = 0
+thing2 : integer
+
+3thing : funk
+
+3thing = (arg1 : integer :3 arg2 : integer) =w= (
+	meow (arg1 + arg2)
+)
+
+
+iloveu
