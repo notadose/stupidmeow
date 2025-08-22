@@ -4,12 +4,12 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#include "parser.h"
+#include "tokenizer.h"
 #include "builtins.h"
 
-struct smParserToken sm_create_token_specop(enum smSpecOp type){
-  struct smParserToken out = {
-    .type = SMPTT_SPECOP,
+struct smToken sm_create_token_specop(enum smSpecOp type){
+  struct smToken out = {
+    .type = SMTT_SPECOP,
     .content = {
       .specOpContent = type
     }
@@ -18,9 +18,9 @@ struct smParserToken sm_create_token_specop(enum smSpecOp type){
   return out;
 }
 
-struct smParserToken sm_create_token_integer(int64_t value){
-  struct smParserToken out = {
-    .type = SMPTT_INTLIT,
+struct smToken sm_create_token_integer(int64_t value){
+  struct smToken out = {
+    .type = SMTT_INTLIT,
     .content = {
       .intContent = value
     }
@@ -28,9 +28,9 @@ struct smParserToken sm_create_token_integer(int64_t value){
 
   return out;
 }
-struct smParserToken sm_create_token_float(double value){
-  struct smParserToken out = {
-    .type = SMPTT_FLOATLIT,
+struct smToken sm_create_token_float(double value){
+  struct smToken out = {
+    .type = SMTT_FLOATLIT,
     .content = {
       .floatContent = value
     }
@@ -40,13 +40,13 @@ struct smParserToken sm_create_token_float(double value){
 }
 
 // string-containing tokens allocate their own null-terminated copy of the text
-struct smParserToken sm_create_token_keyword(const char *name, uint64_t length){
+struct smToken sm_create_token_keyword(const char *name, uint64_t length){
   char *nameBuf = calloc(length+1, sizeof(char));
   strncpy(nameBuf, name, length);
   nameBuf[length] = '\0';
 
-  struct smParserToken out = {
-    .type = SMPTT_KEYWORD,
+  struct smToken out = {
+    .type = SMTT_KEYWORD,
     .content = {
       .textContent = nameBuf
     }
@@ -54,14 +54,14 @@ struct smParserToken sm_create_token_keyword(const char *name, uint64_t length){
 
   return out;
 }
-struct smParserToken sm_create_token_string(const char *string, uint64_t length){
+struct smToken sm_create_token_string(const char *string, uint64_t length){
   char *stringBuf = calloc(length+1, sizeof(char));
 
   strncpy(stringBuf, string, length);
   stringBuf[length] = '\0';
 
-  struct smParserToken out = {
-    .type = SMPTT_STRLIT,
+  struct smToken out = {
+    .type = SMTT_STRLIT,
     .content = {
       .textContent = stringBuf
     }
@@ -70,40 +70,40 @@ struct smParserToken sm_create_token_string(const char *string, uint64_t length)
   return out;
 }
 
-struct smParserToken sm_create_token_openpar(){
-  struct smParserToken out = {
-    .type = SMPTT_OPENPAR
+struct smToken sm_create_token_openpar(){
+  struct smToken out = {
+    .type = SMTT_OPENPAR
   };
 
   return out;
 }
 
-struct smParserToken sm_create_token_closepar(){
-  struct smParserToken out = {
-    .type = SMPTT_CLOSEPAR
+struct smToken sm_create_token_closepar(){
+  struct smToken out = {
+    .type = SMTT_CLOSEPAR
   };
 
   return out;
 }
 
-struct smParserToken sm_create_token_openbrak(){
-  struct smParserToken out = {
-    .type = SMPTT_OPENBRAK
+struct smToken sm_create_token_openbrak(){
+  struct smToken out = {
+    .type = SMTT_OPENBRAK
   };
 
   return out;
 }
-struct smParserToken sm_create_token_closebrak(){
-  struct smParserToken out = {
-    .type = SMPTT_CLOSEBRAK
+struct smToken sm_create_token_closebrak(){
+  struct smToken out = {
+    .type = SMTT_CLOSEBRAK
   };
 
   return out;
 }
 
-struct smParserToken sm_create_token_iloveu(){
-  struct smParserToken out = {
-    .type = SMPTT_ILOVEU
+struct smToken sm_create_token_iloveu(){
+  struct smToken out = {
+    .type = SMTT_ILOVEU
   };
 
   return out;
@@ -111,7 +111,7 @@ struct smParserToken sm_create_token_iloveu(){
 
 // Parse a string into a token token intelligently (figure out what it does..)
 // could be a keyword or number or special operator or iloveu
-struct smParserToken sm_parse_word_to_token(const char *word, uint64_t length){
+struct smToken sm_parse_word_to_token(const char *word, uint64_t length){
   if(strncmp(word, "iloveu", length) == 0){
     return sm_create_token_iloveu();
   }
@@ -153,13 +153,13 @@ struct smParserToken sm_parse_word_to_token(const char *word, uint64_t length){
 
 
 /*
-sm_parse_program
+sm_tokenize_program
 
 Create an array of tokens from a null-terminated string
 Array will end with an ILOVEU token
 Returns NULL on failure
 */
-struct smParserToken *sm_parse_program(const char *programStr){
+struct smToken *sm_tokenize_program(const char *programStr){
   uint64_t parserIndex = 0;
   uint64_t currentlyReadingFrom = 0;
 
@@ -169,15 +169,15 @@ struct smParserToken *sm_parse_program(const char *programStr){
   bool readingWhitespace = true; // We start out essentially having just read whitespace
 
   uint64_t tokenBufferSize = 1024;
-  struct smParserToken *tokenBuffer = malloc(tokenBufferSize);
+  struct smToken *tokenBuffer = malloc(tokenBufferSize);
 
   uint64_t tokenBufferIndex = 0;
 
   while(true){
     if(tokenBufferIndex >= tokenBufferSize){
       tokenBufferSize *= 2;
-      struct smParserToken *tokenBufferNew = malloc(tokenBufferSize);
-      memccpy(tokenBufferNew, tokenBuffer, tokenBufferIndex, sizeof(struct smParserToken));
+      struct smToken *tokenBufferNew = malloc(tokenBufferSize);
+      memccpy(tokenBufferNew, tokenBuffer, tokenBufferIndex, sizeof(struct smToken));
       free(tokenBuffer);
       tokenBuffer = tokenBufferNew;
     }
@@ -187,7 +187,7 @@ struct smParserToken *sm_parse_program(const char *programStr){
     const bool wasWhitespace = readingWhitespace;
 
     bool addToken = false;
-    struct smParserToken addingToken;
+    struct smToken addingToken;
 
     if(readingString){
       if(currentChar == '<'){
@@ -276,7 +276,7 @@ struct smParserToken *sm_parse_program(const char *programStr){
     parserIndex++;
   }
 
-  if(tokenBuffer[tokenBufferIndex-1].type != SMPTT_ILOVEU){
+  if(tokenBuffer[tokenBufferIndex-1].type != SMTT_ILOVEU){
     free(tokenBuffer);
     return NULL;
   }
@@ -309,7 +309,7 @@ int main(int argc, char *argv[]){
 
   if (buffer)
   {
-    struct smParserToken *parsedTokens = sm_parse_program(buffer);
+    struct smToken *parsedTokens = sm_tokenize_program(buffer);
     printf("%i\n", parsedTokens[0].content);
   }
   return 0;

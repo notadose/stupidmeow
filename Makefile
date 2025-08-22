@@ -8,7 +8,7 @@ SOURCE_DIR = src
 
 # List of all the source files.
 SOURCE = \
-	parser.c \
+	tokenizer.c \
 
 INCLUDES = \
 	src \
