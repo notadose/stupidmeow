@@ -9,11 +9,12 @@ thing : integer
 thing = 0
 thing2 : integer
 
-3thing : funk
+2add : (arg1 : integer :3 arg2 : integer) =w= integer
 
-3thing = (arg1 : integer :3 arg2 : integer) =w= (
+2add = {
 	meow (arg1 + arg2)
-)
+	arg1 + arg2
+}
 
 
 iloveu

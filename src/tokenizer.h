@@ -12,6 +12,8 @@ enum smTokenType{
   SMTT_CLOSEPAR, // )
   SMTT_OPENBRAK, // [
   SMTT_CLOSEBRAK, // ]
+  SMTT_OPENSQUIG, // {
+  SMTT_CLOSESQUIG, // }
   SMTT_ILOVEU, // iloveu
   SMTT_KEYWORD
 };
@@ -59,6 +61,9 @@ struct smToken sm_create_token_closepar();
 
 struct smToken sm_create_token_openbrak();
 struct smToken sm_create_token_closebrak();
+
+struct smToken sm_create_token_opensquig();
+struct smToken sm_create_token_closesquig();
 
 struct smToken sm_create_token_iloveu();
 
