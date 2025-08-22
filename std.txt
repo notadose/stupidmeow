@@ -48,7 +48,7 @@ myfunky : (
 	:3
 	arg3 : integer
 	arg4 : string
-	) =w= number
+	) =w= integer
 
 myfunky =  {
 	^ output arg1 to console ^
