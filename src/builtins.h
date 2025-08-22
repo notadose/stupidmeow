@@ -10,6 +10,5 @@ enum smSpecOp{
 enum smBuiltinType{
   SMBT_STRING,
   SMBT_INTEGER,
-  SMBT_FLOAT,
-  SMBT_TYPE
+  SMBT_FLOAT
 };

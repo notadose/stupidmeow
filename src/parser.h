@@ -1,3 +1,7 @@
+#pragma once
+
+#include <stdbool.h>
+
 #include "tokenizer.h"
 #include "builtins.h"
 
@@ -13,6 +17,7 @@ struct smParserFunk{
 
 struct smParserType{
   bool isFunk; // if true, uses only funk; if false, uses memberCount & members
+  bool isArray; // if true, has only one member and memberCount is the array size
   uint32_t memberCount;
 
   union {
@@ -22,32 +27,40 @@ struct smParserType{
 };
 
 struct smParserNamedType{
-  smParserType type;
-  const char *name;
+  struct smParserType type;
+  char *name;
 };
 
 struct smParserNamedVar{ // connects a named var to its type (not value!)
-  const char *varName;
-  smParserType *type; // point to the type in smParserContext.namedTypes;
+  char *varName;
+  struct smParserType *type; // point to the type in smParserContext.namedTypes;
 };
 
 struct smParserNamedTypeArray{
-  smParserNamedType *namedTypes; // array of named types in this context
+  struct smParserNamedType *namedTypes; // array of named types in this context
   uint64_t namedTypeCount;
   uint64_t arraySize;
 };
 
 struct smParserNamedVarArray{
-  smParserNamedVar *namedVars; // array of named vars in this context
+  struct smParserNamedVar *namedVars; // array of named vars in this context
   uint64_t namedVarCount;
   uint64_t arraySize;
 };
 
 struct smParserContext{
-  smParserNamedTypeArray typeArray;
-  smParserNamedVarArray varArray;
+  struct smParserNamedTypeArray typeArray;
+  struct smParserNamedVarArray varArray;
 };
 
-smParserContext smParserCreateDefaultContext(); // create a parser context with default funcs/types
-void smParserAddNamedType(struct smNamedTypeArray *to);
-void smParserAddNamedVar(struct smNamedVarArray *to);
+struct smParserContext smParserCreateDefaultContext(); // create a parser context with default funcs/types
+
+// add a new type to context
+void smParserAddNamedType(struct smParserNamedTypeArray *to, struct smParserType toAdd, const char *name);
+
+// declare a new var and its type (toAdd should be a pointer to a type in the parserContext)
+void smParserAddNamedVar(struct smParserNamedVarArray *to, struct smParserType *toAdd, const char *name); 
+
+// locate the given namedtype by its name, return null if not found
+struct smParserNamedType *smParserGetNamedType(struct smParserNamedTypeArray *from, const char *name);
+struct smParserNamedVar *smParserGetNamedVar(struct smParserNamedVarArray *from, const char *name);

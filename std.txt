@@ -28,10 +28,12 @@ myintlist : integer [6]
 ^ we only assign the first value ^
 myintlist[0] = 1
 
+^ that's equivalent to this btw ^
+myintlist2 : (integer integer integer integer integer integer)
+
 
 ^ define our own datatype ^
 myweirdtype : type
-
 myweirdtype = (integer string)
 
 
