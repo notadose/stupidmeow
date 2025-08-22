@@ -42,26 +42,28 @@ myweirdthing = (myint2 mystring)
 
 
 ^ make a function! ^
-myfunky : funk
-
-myfunky = (
+myfunky : (
 	arg1 : string
 	arg2 : integer
 	:3
 	arg3 : integer
 	arg4 : string
-	) =w= (
+	) =w= number
 
+myfunky =  {
 	^ output arg1 to console ^
 	meow arg1
 
 	^ self explanatory ^
 	meow (arg2 + arg3)
 	meow arg4
-)
+
+	^ return a value ^
+	arg2 + arg3
+}
 
 
-^ call our function!!
+^ call our function!! ^
 
 >im arg1< 6 myfunky 7 >im arg4<
 
@@ -105,6 +107,9 @@ parentheses ( () )
 
 brackets ( [size] or [0-index] )
 	used for selecting an item from a list or declaring as a list
+
+squiggles ( {code here} )
+	used for codeblocks
 
 iloveu (iloveu)
 	put this at the end of the file to show your love. will not run without it.

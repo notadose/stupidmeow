@@ -101,6 +101,21 @@ struct smToken sm_create_token_closebrak(){
   return out;
 }
 
+struct smToken sm_create_token_opensquig(){
+  struct smToken out = {
+    .type = SMTT_OPENSQUIG
+  };
+
+  return out;
+}
+struct smToken sm_create_token_closesquig(){
+  struct smToken out = {
+    .type = SMTT_CLOSESQUIG
+  };
+
+  return out;
+}
+
 struct smToken sm_create_token_iloveu(){
   struct smToken out = {
     .type = SMTT_ILOVEU
@@ -249,6 +264,18 @@ struct smToken *sm_tokenize_program(const char *programStr){
 
         case ']':
           addingToken = sm_create_token_closebrak();
+          addToken = true;
+          readingWhitespace = true;
+          break;
+
+        case '{':
+          addingToken = sm_create_token_opensquig();
+          addToken = true;
+          readingWhitespace = true;
+          break;
+
+        case '}':
+          addingToken = sm_create_token_closesquig();
           addToken = true;
           readingWhitespace = true;
           break;
